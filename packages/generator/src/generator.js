@@ -254,7 +254,9 @@ or disable the build step: \`generate({ build: false })\``)
 
   async initDist () {
     // Clean destination folder
-    await fsExtra.emptyDir(this.distPath)
+    if (this.options.cleanDist) {
+      await fsExtra.emptyDir(this.distPath)
+    }
 
     consola.info(`Generating output directory: ${path.basename(this.distPath)}/`)
     await this.nuxt.callHook('generate:distRemoved', this)
